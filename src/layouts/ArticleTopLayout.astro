@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import { formatDate, readingTime } from "@lib/utils";
+import { Image } from "astro:assets";
 
 type Props = {
   entry: CollectionEntry<"projects"> | CollectionEntry<"blog">;
@@ -8,7 +9,7 @@ type Props = {
 
 const { entry } = Astro.props;
 const { collection, data, body } = entry;
-const { title, summary, date } = data;
+const { title, summary, date, heroImage } = data;
 
 const demoUrl = collection === "projects" ? data.demoUrl : null;
 const repoUrl = collection === "projects" ? data.repoUrl : null;
@@ -48,7 +49,20 @@ const repoUrl = collection === "projects" ? data.repoUrl : null;
       Back to {collection}
     </div>
   </a>
-  <div class="mt-12 flex flex-wrap gap-3 text-sm uppercase opacity-75">
+  {
+    heroImage && (
+      <div class="mb-4 mt-8">
+        <Image
+          src={heroImage.src}
+          alt={heroImage.alt}
+          class="w-full rounded-lg"
+          widths={[400, 768, 1024, 2040]}
+          sizes="(max-width: 767px) 400px, (max-width: 1023px) 768px, (max-width: 2039px) 1024px, 2040px"
+        />
+      </div>
+    )
+  }
+  <div class:list={[heroImage ? "" : "mt-12", "flex flex-wrap gap-3 text-sm uppercase opacity-75"]}>
     <div class="flex items-center gap-2">
       <svg class="size-5 stroke-current">
         <use href="/ui.svg#calendar"></use>
@@ -108,4 +122,5 @@ const repoUrl = collection === "projects" ? data.repoUrl : null;
       </div>
     )
   }
+  <hr class="mt-4 border-black/15 dark:border-white/20" />
 </div>
