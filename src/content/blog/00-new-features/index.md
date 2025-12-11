@@ -14,6 +14,10 @@ heroImage:
 
 A one line summary of what each file and directory is for:
 
-```javascript title="example.js"
+```javascript
+// example.js
 const jack = "jack";
+let mouse = "mx master 4";
+
+mouse = "lg g pro";
 ```
